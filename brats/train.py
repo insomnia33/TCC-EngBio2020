@@ -1,10 +1,10 @@
 import os
 import glob
 
-from unet3d.data import write_data_to_file, open_data_file
-from unet3d.generator import get_training_and_validation_generators
-from unet3d.model import unet_model_3d
-from unet3d.training import load_old_model, train_model
+from 3DUnetCNN/unet3d.data import write_data_to_file, open_data_file
+from 3DUnetCNN/unet3d.generator import get_training_and_validation_generators
+from 3DUnetCNN/unet3d.model import unet_model_3d
+from 3DUnetCNN/unet3d.training import load_old_model, train_model
 
 
 config = dict()
@@ -48,7 +48,7 @@ config["overwrite"] = False  # If True, will previous files. If False, will use 
 
 def fetch_training_data_files():
     training_data_files = list()
-    for subject_dir in glob.glob(os.path.join(os.path.dirname(__file__), "/kaggle/input/brats2019preprocessed/data", "preprocessed", "*", "*")):
+    for subject_dir in glob.glob(os.path.join(os.path.dirname(__file__), "../input/brats2019preprocessed/data", "preprocessed", "*", "*")):
         subject_files = list()
         for modality in config["training_modalities"] + ["truth"]:
             subject_files.append(os.path.join(subject_dir, modality + ".nii.gz"))
