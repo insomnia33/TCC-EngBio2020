@@ -48,7 +48,7 @@ config["overwrite"] = False  # If True, will previous files. If False, will use 
 
 def fetch_training_data_files():
     training_data_files = list()
-    for subject_dir in glob.glob(os.path.join(os.path.dirname(__file__), "data", "preprocessed", "*", "*")):
+    for subject_dir in glob.glob(os.path.join(os.path.dirname(__file__), "/kaggle/input/brats2019preprocessed/data", "preprocessed", "*", "*")):
         subject_files = list()
         for modality in config["training_modalities"] + ["truth"]:
             subject_files.append(os.path.join(subject_dir, modality + ".nii.gz"))
