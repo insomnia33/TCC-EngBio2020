@@ -1,10 +1,10 @@
 import os
 import glob
 
-from unet3d.data import write_data_to_file, open_data_file
-from unet3d.generator import get_training_and_validation_generators
-from unet3d.model import unet_model_3d
-from unet3d.training import load_old_model, train_model
+from kaggle/working/unet3d.data import write_data_to_file, open_data_file
+from kaggle/working/unet3d.generator import get_training_and_validation_generators
+from kaggle/working/unet3d.model import unet_model_3d
+from kaggle/working/unet3d.training import load_old_model, train_model
 
 
 config = dict()
