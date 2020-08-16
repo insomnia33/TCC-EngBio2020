@@ -11,10 +11,11 @@ import matplotlib.pyplot as plt
 def get_whole_tumor_mask(data):
     return data > 0
 
-
 def get_tumor_core_mask(data):
     return np.logical_or(data == 1, data == 4)
 
+def get_tumor_ncr_mask(data):
+    return data == 1
 
 def get_enhancing_tumor_mask(data):
     return data == 4
@@ -25,8 +26,8 @@ def dice_coefficient(truth, prediction):
 
 
 def main():
-    header = ("WholeTumor", "TumorCore", "EnhancingTumor")
-    masking_functions = (get_whole_tumor_mask, get_tumor_core_mask, get_enhancing_tumor_mask)
+    header = ("TumorCore", "EnhancingTumor", "NCR/NET")
+    masking_functions = (get_tumor_core_mask, get_enhancing_tumor_mask, get_tumor_ncr_mask)
     rows = list()
     subject_ids = list()
     for case_folder in glob.glob("prediction/*"):

@@ -13,9 +13,13 @@ try:
 except ImportError:
     from keras.layers.merge import concatenate
 
+from segmentation_models.losses import *
+from segmentation_models.metrics import *
+
+
 
 def unet_model_3d(input_shape, pool_size=(2, 2, 2), n_labels=1, initial_learning_rate=0.00001, deconvolution=False,
-                  depth=4, n_base_filters=32, include_label_wise_dice_coefficients=False, metrics=dice_coefficient,
+                  depth=4, n_base_filters=32, include_label_wise_dice_coefficients=False, metrics=FScore(),
                   batch_normalization=False, activation_name="relu"):
     """
     Builds the 3D UNet Keras model.f
@@ -78,7 +82,7 @@ def unet_model_3d(input_shape, pool_size=(2, 2, 2), n_labels=1, initial_learning
         else:
             metrics = label_wise_dice_metrics
 
-    model.compile(optimizer=Adam(lr=initial_learning_rate), loss=dice_coefficient_loss, metrics=metrics)
+    model.compile(optimizer=Adam(lr=initial_learning_rate), loss=DiceLoss(), metrics=metrics)
     return model
 
 
@@ -100,7 +104,7 @@ def create_convolution_block(input_layer, n_filters, batch_normalization=False, 
         layer = BatchNormalization(axis=1)(layer)
     elif instance_normalization:
         try:
-            from keras_contrib.layers.normalization import InstanceNormalization
+            from keras_contrib.layers import InstanceNormalization
         except ImportError:
             raise ImportError("Install keras_contrib in order to use instance normalization."
                               "\nTry: pip install git+https://www.github.com/farizrahman4u/keras-contrib.git")

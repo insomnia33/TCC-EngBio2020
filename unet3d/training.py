@@ -8,7 +8,10 @@ from keras.models import load_model
 from unet3d.metrics import (dice_coefficient, dice_coefficient_loss, dice_coef, dice_coef_loss,
                             weighted_dice_coefficient_loss, weighted_dice_coefficient)
 
-K.common.set_image_dim_ordering('th')
+K.set_image_data_format('channels_first')
+
+from segmentation_models.losses import *
+from segmentation_models.metrics import *
 
 
 # learning rate schedule
@@ -45,7 +48,7 @@ def load_old_model(model_file):
     except ImportError:
         pass
     try:
-        return load_model(model_file, custom_objects=custom_objects)
+        return load_model(model_file, custom_objects={'Dice Coefficient' : FScore(), 'Dice Loss' : DiceLoss()}, compile=False)
     except ValueError as error:
         if 'InstanceNormalization' in str(error):
             raise ValueError(str(error) + "\n\nPlease install keras-contrib to use InstanceNormalization:\n"

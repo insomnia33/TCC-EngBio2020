@@ -76,7 +76,7 @@ def prediction_to_image(prediction, affine, label_map=False, threshold=0.5, labe
         if label_map:
             label_map_data = np.zeros(prediction[0, 0].shape, np.int8)
             if labels:
-                label = labels#[0]
+                label = labels[0]
             else:
                 label = 1
             label_map_data[data > threshold] = label
