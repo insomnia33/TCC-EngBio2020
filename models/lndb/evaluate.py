@@ -7,6 +7,8 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
+def get_nodule_mask(data):
+    return data == 1
 
 def get_whole_tumor_mask(data):
     return data > 0
@@ -26,8 +28,8 @@ def dice_coefficient(truth, prediction):
 
 
 def main():
-    header = ("TumorCore", "EnhancingTumor", "NCR/NET")
-    masking_functions = (get_tumor_core_mask, get_enhancing_tumor_mask, get_tumor_ncr_mask)
+    header = ("Lung Nodule")
+    masking_functions = (get_nodule_mask)
     rows = list()
     subject_ids = list()
     for case_folder in glob.glob("prediction/*"):
@@ -40,9 +42,9 @@ def main():
         prediction_file = os.path.join(case_folder, "prediction.nii.gz")
         prediction_image = nib.load(prediction_file)
         prediction = prediction_image.get_data()
-        rows.append([dice_coefficient(func(truth), func(prediction))for func in masking_functions])
+        rows.append([dice_coefficient(get_nodule_mask(truth), get_nodule_mask(prediction))])
 
-    df = pd.DataFrame.from_records(rows, columns=header, index=subject_ids)
+    df = pd.DataFrame.from_records(rows, columns=[header], index=subject_ids)
     df.to_csv("./prediction/brats_scores.csv")
 
     scores = dict()
