@@ -4,14 +4,35 @@
 O TCC consiste em uma plataforma clínica para segmentação de tumores cerebrais em RM-3D, nódulos pulmonares em TC-3D e classificação de covid 19 em TC-2D.
 
 ## Metodologia
+### Bibliotecas
+### Arquitetura
+### Datasets
 
-## Fluxogramas
+## Pipeline e Fluxogramas
+### Pre-processamento
+### Frontend e Backend
 
 ## Resultados
 
 | Model Performance |
 |:----------:|
 |<img src="doc/caso92.gif" widht="250px" height="250px"/>
+
+### Modelo XXXXXX
+| Histograma Model XXX | Boxplot Model XXX |
+|:----------:|:----------:|
+|<img src="doc/" widht="250px" height="250px"/>|<img src="doc/" widht="250px" height="250px"/>
+
+### Modelo XXXXXX
+| Histograma Model XXX | Boxplot Model XXX |
+|:----------:|:----------:|
+|<img src="doc/" widht="250px" height="250px"/>|<img src="doc/" widht="250px" height="250px"/>
+
+### Modelo XXXXXX
+| Histograma Model XXX | Boxplot Model XXX |
+|:----------:|:----------:|
+|<img src="doc/" widht="250px" height="250px"/>|<img src="doc/" widht="250px" height="250px"/>
+
 
 ## Referências
 
