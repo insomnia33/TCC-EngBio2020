@@ -5,6 +5,8 @@ O TCC consiste em uma plataforma clínica para segmentação de tumores cerebrai
 
 ## Metodologia
 ### Bibliotecas
+* SimpleITK
+* Keras
 ### Arquitetura
 ### Datasets
 
