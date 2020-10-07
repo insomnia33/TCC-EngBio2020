@@ -9,6 +9,10 @@ O TCC consiste em uma plataforma clínica para segmentação de tumores cerebrai
 
 ## Resultados
 
+| Model Performance |
+|:----------:|
+|<img src="./doc/caso92.mp4" widht="250px" height="250px"/>
+
 ## Referências
 
 
