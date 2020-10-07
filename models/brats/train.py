@@ -10,10 +10,10 @@ from unet3d.training import load_old_model, train_model
 config = dict()
 config["pool_size"] = (2, 2, 2)  # pool size for the max pooling operations
 config["image_shape"] = (144, 144, 144)  # This determines what shape the images will be cropped/resampled to.
-config["patch_shape"] = None  # switch to None to train on the whole image
-config["labels"] = (1, 2, 4)  # the label numbers on the input image
+config["patch_shape"] = (96, 96, 96)  # switch to None to train on the whole image
+config["labels"] = (2, 3)  # the label numbers on the input image
 config["n_labels"] = len(config["labels"])
-config["all_modalities"] = ["t1", "t1ce", "flair", "t2"]
+config["all_modalities"] = ["t1", "t2", "flair"] 
 config["training_modalities"] = config["all_modalities"]  # change this if you want to only use some of the modalities
 config["nb_channels"] = len(config["training_modalities"])
 if "patch_shape" in config and config["patch_shape"] is not None:
@@ -23,11 +23,11 @@ else:
 config["truth_channel"] = config["nb_channels"]
 config["deconvolution"] = True  # if False, will use upsampling instead of deconvolution
 
-config["batch_size"] = 6
-config["validation_batch_size"] = 12
-config["n_epochs"] = 100  # cutoff the training after this many epochs
-config["patience"] = 10  # learning rate will be reduced after this many epochs if the validation loss is not improving
-config["early_stop"] = 50  # training will be stopped after this many epochs without the validation loss improving
+config["batch_size"] = 2
+config["validation_batch_size"] = 2
+config["n_epochs"] = 50  # cutoff the training after this many epochs
+config["patience"] = 5  # learning rate will be reduced after this many epochs if the validation loss is not improving
+config["early_stop"] = 25  # training will be stopped after this many epochs without the validation loss improving
 config["initial_learning_rate"] = 0.00001
 config["learning_rate_drop"] = 0.5  # factor by which the learning rate will be reduced
 config["validation_split"] = 0.8  # portion of the data that will be used for training

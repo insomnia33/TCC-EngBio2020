@@ -9,6 +9,8 @@ from .utils import pickle_load
 from .utils.patches import reconstruct_from_patches, get_patch_from_3d_data, compute_patch_indices
 from .augment import permute_data, generate_permutation_keys, reverse_permute_data
 
+from segmentation_models.losses import *
+from segmentation_models.metrics import *
 
 def patch_wise_prediction(model, data, overlap=0, batch_size=1, permute=False):
     """
