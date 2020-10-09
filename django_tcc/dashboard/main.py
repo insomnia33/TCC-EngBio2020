@@ -13,7 +13,7 @@ def volume(image, label=1):
 
     count, _, _ = np.where(maskArray == label) # count the number of voxels
     volume = len(count)*pxX*pxY*pxZ # multiply number of voxels with voxel spacing (x,y,z) getting the result in mm³
-    print(volume)
+    
     return int(volume)
 
 def volumeProportion(refMask, segMask): # refference mask and segmentation mask
@@ -40,31 +40,41 @@ def stlConverter(image):
     stlWriter.Write()
 
     
+def execute(volumes, path):
+
+    mask = sitk.ReadImage(path+'truth.nii.gz')
+
+    volumes['Necrosis'] = volume(mask, 1)/1000
+    volumes['EnhancingTumor'] = volume(mask, 4)/1000
+    volumes['Edema'] = volume(mask, 2)/1000
+    volumes['TumorCore']  = volumes['Necrosis']+volumes['EnhancingTumor']
+    volumes['WholeTumor'] = volumes['TumorCore']+volumes['Edema']
+    volumes['PropTumorCore'] = (volumes['TumorCore']/volumes['WholeTumor'])*100
+    volumes['PropEnhancingTumor'] = (volumes['EnhancingTumor']/volumes['WholeTumor'])*100
+    volumes['PropNecrosis'] = (volumes['Necrosis']/volumes['WholeTumor'])*100
+    volumes['PropEdema'] = (volumes['Edema']/volumes['WholeTumor'])*100
+    volumes['PropTumor'] = (volumes['WholeTumor']/volumes["Volume"])*100
+
+    return volumes
 
 def main(path, file):
     image = sitk.ReadImage(path+file)
-    mask = sitk.ReadImage(path+'truth.nii.gz')
-    imageVolume = volume(sitk.BinaryThreshold(image, 1))/1000
     
+
+    imageVolume = volume(sitk.BinaryThreshold(image, 0.1))/1000
+
     volumes = {}
-    volumes['Nome'] = 'Paciente 33'
-    volumes['Idade'] = '33 anos'
+    volumes["Volume"] = imageVolume
+    volumes['Nome'] = 'Paciente 92'
+    volumes['Idade'] = '24 anos'
     volumes['Sexo'] = 'Masculino'
     volumes['Regiao'] = 'Cabeça'
     volumes['Modalidade'] = 'Ressonância Magnética'
     volumes['Aquisicao'] = '16/03/2020'
     volumes['Shape'] = image.GetSize()
     volumes['Spacing'] = image.GetSpacing()
-    volumes['Path'] = path+file
-    volumes['Necrosis'] = volume(mask, 1)/1000
-    volumes['EnhancingTumor'] = volume(mask, 4)/1000
-    volumes['Edema'] = volume(mask, 2)/1000
-    volumes['TumorCore']  = volumes['Necrosis']+volumes['EnhancingTumor']
-    volumes['WholeTumor'] = volumes['TumorCore']+volumes['Edema']
-    volumes['PropEnhancingTumor'] = (volumes['EnhancingTumor']/volumes['WholeTumor'])*100
-    volumes['PropNecrosis'] = (volumes['Necrosis']/volumes['WholeTumor'])*100
-    volumes['PropEdema'] = (volumes['Edema']/volumes['WholeTumor'])*100
-    volumes['PropTumor'] = (volumes['WholeTumor']/imageVolume)*100
+    volumes['Arquivo'] = file
+
 
     return(volumes)
     
