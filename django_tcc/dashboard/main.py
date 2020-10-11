@@ -42,16 +42,18 @@ def stlConverter(image):
     
 def execute(volumes, path):
 
-    mask = sitk.ReadImage(path+'truth.nii.gz')
+    image = sitk.ReadImage(volumes['Arquivo'])
+    imageEdema = sitk.BinaryThreshold(image, 0.5, insideValue=2)
+    imageCore = sitk.BinaryThreshold(image, 0.9, insideValue=3)
 
-    volumes['Necrosis'] = volume(mask, 1)/1000
-    volumes['EnhancingTumor'] = volume(mask, 4)/1000
-    volumes['Edema'] = volume(mask, 2)/1000
-    volumes['TumorCore']  = volumes['Necrosis']+volumes['EnhancingTumor']
+    #volumes['Necrosis'] = volume(mask, 1)/1000
+    #volumes['EnhancingTumor'] = volume(mask, 4)/1000
+    volumes['Edema'] = volume(imageEdema, 2)/1000
+    volumes['TumorCore']  = volume(imageCore, 3)/1000
     volumes['WholeTumor'] = volumes['TumorCore']+volumes['Edema']
     volumes['PropTumorCore'] = (volumes['TumorCore']/volumes['WholeTumor'])*100
-    volumes['PropEnhancingTumor'] = (volumes['EnhancingTumor']/volumes['WholeTumor'])*100
-    volumes['PropNecrosis'] = (volumes['Necrosis']/volumes['WholeTumor'])*100
+    #volumes['PropEnhancingTumor'] = (volumes['EnhancingTumor']/volumes['WholeTumor'])*100
+    #volumes['PropNecrosis'] = (volumes['Necrosis']/volumes['WholeTumor'])*100
     volumes['PropEdema'] = (volumes['Edema']/volumes['WholeTumor'])*100
     volumes['PropTumor'] = (volumes['WholeTumor']/volumes["Volume"])*100
 
@@ -60,8 +62,7 @@ def execute(volumes, path):
 def main(path, file):
     image = sitk.ReadImage(path+file)
     
-
-    imageVolume = volume(sitk.BinaryThreshold(image, 0.1))/1000
+    imageVolume = volume(sitk.BinaryThreshold(image, -0.8))/1000
 
     volumes = {}
     volumes["Volume"] = imageVolume
@@ -73,7 +74,7 @@ def main(path, file):
     volumes['Aquisicao'] = '16/03/2020'
     volumes['Shape'] = image.GetSize()
     volumes['Spacing'] = image.GetSpacing()
-    volumes['Arquivo'] = file
+    volumes['Arquivo'] = path+file
 
 
     return(volumes)

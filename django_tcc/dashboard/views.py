@@ -2,7 +2,7 @@ from django.shortcuts import render
 from dashboard.main import main, execute
 import json
 
-path = "D:\\TCC\\Modelos\\prediction96-2-3\\validation_case_92\\"
+path = "D:\\TCC\\input\\"
 
 # Create your views here.
 
