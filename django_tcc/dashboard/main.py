@@ -1,7 +1,10 @@
 import SimpleITK as sitk
 import numpy as np
+import imageio
 import vtk
 import os
+
+path = 'dashboard/media/'
 
 def volume(image, label=1):
     # check if is a file or a path, if is a path then load the image
@@ -39,13 +42,24 @@ def stlConverter(image):
     stlWriter.SetInputConnection(dmc.GetOutputPort())
     stlWriter.Write()
 
+def sliceSaver(image):
     
-def execute(volumes, path):
+    axialSlice = np.rot90(sitk.GetArrayFromImage(image)[72,:,:], 2)
+    coronalSlice = np.rot90(sitk.GetArrayFromImage(image)[:,72,:], 2)
+    sagitalSlice = np.rot90(sitk.GetArrayFromImage(image)[:,:,72], 2)
 
-    image = sitk.ReadImage(volumes['Arquivo'])
+    imageio.imwrite('dashboard/static/axialSlice.png', axialSlice)
+    imageio.imwrite('dashboard/static/coronalSlice.png', coronalSlice)
+    imageio.imwrite('dashboard/static/sagitalSlice.png', sagitalSlice)
+
+
+def execute(volumes):
+
+    image = sitk.ReadImage(path+volumes['FileName'])
     imageEdema = sitk.BinaryThreshold(image, 0.5, insideValue=2)
     imageCore = sitk.BinaryThreshold(image, 0.9, insideValue=3)
-
+    sitk.WriteImage(imageEdema, path+'edema.nii.gz')
+    sitk.WriteImage(imageCore, path+'core.nii.gz')
     #volumes['Necrosis'] = volume(mask, 1)/1000
     #volumes['EnhancingTumor'] = volume(mask, 4)/1000
     volumes['Edema'] = volume(imageEdema, 2)/1000
@@ -59,12 +73,13 @@ def execute(volumes, path):
 
     return volumes
 
-def main(path, file):
-    image = sitk.ReadImage(path+file)
-    
+def main(fileName):
+    image = sitk.ReadImage(path+fileName)
+    sliceSaver(image)
     imageVolume = volume(sitk.BinaryThreshold(image, -0.8))/1000
 
     volumes = {}
+    volumes['FileName'] = fileName
     volumes["Volume"] = imageVolume
     volumes['Nome'] = 'Paciente 92'
     volumes['Idade'] = '24 anos'
@@ -74,7 +89,6 @@ def main(path, file):
     volumes['Aquisicao'] = '16/03/2020'
     volumes['Shape'] = image.GetSize()
     volumes['Spacing'] = image.GetSpacing()
-    volumes['Arquivo'] = path+file
 
 
     return(volumes)

@@ -16,9 +16,14 @@ O TCC consiste em uma plataforma clínica para segmentação de tumores cerebrai
 
 ## Resultados
 
+| 3D Overlay |
+|:----------:|
+|<img src="doc/case92pred.gif" widht="250" height="250"/>|
+
+
 | Model Performance |
 |:----------:|
-|<img src="doc/caso92.gif" widht="500" height="500"/>
+|<img src="doc/caso92.gif" widht="500" height="500"/>|
 
 ### Modelo XXXXXX
 | Histograma Model XXX | Boxplot Model XXX |
