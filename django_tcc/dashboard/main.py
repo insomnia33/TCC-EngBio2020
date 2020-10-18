@@ -54,22 +54,31 @@ def sliceSaver(image):
 
 
 def execute(volumes):
+    #predict here
 
     image = sitk.ReadImage(path+volumes['FileName'])
-    imageEdema = sitk.BinaryThreshold(image, 0.5, insideValue=2)
+
+    imageEdema = sitk.BinaryThreshold(image, 0.5, 0.9, insideValue=2)
     imageCore = sitk.BinaryThreshold(image, 0.9, insideValue=3)
+    imageWT = sitk.BinaryThreshold(image, 0.5, insideValue=1)
+
     sitk.WriteImage(imageEdema, path+'edema.nii.gz')
     sitk.WriteImage(imageCore, path+'core.nii.gz')
+    sitk.WriteImage(imageWT, path+'wholetumor.nii.gz')
+
     #volumes['Necrosis'] = volume(mask, 1)/1000
     #volumes['EnhancingTumor'] = volume(mask, 4)/1000
-    volumes['Edema'] = volume(imageEdema, 2)/1000
-    volumes['TumorCore']  = volume(imageCore, 3)/1000
-    volumes['WholeTumor'] = volumes['TumorCore']+volumes['Edema']
-    volumes['PropTumorCore'] = (volumes['TumorCore']/volumes['WholeTumor'])*100
     #volumes['PropEnhancingTumor'] = (volumes['EnhancingTumor']/volumes['WholeTumor'])*100
     #volumes['PropNecrosis'] = (volumes['Necrosis']/volumes['WholeTumor'])*100
+
+    volumes['Edema'] = volume(imageEdema, 2)/1000
+    volumes['TumorCore']  = volume(imageCore, 3)/1000
+    volumes['WholeTumor'] = volume(imageWT, 1)/1000
+    volumes['PropTumorCore'] = (volumes['TumorCore']/volumes['WholeTumor'])*100
     volumes['PropEdema'] = (volumes['Edema']/volumes['WholeTumor'])*100
     volumes['PropTumor'] = (volumes['WholeTumor']/volumes["Volume"])*100
+
+    print(volumes)
 
     return volumes
 
@@ -89,6 +98,7 @@ def main(fileName):
     volumes['Aquisicao'] = '16/03/2020'
     volumes['Shape'] = image.GetSize()
     volumes['Spacing'] = image.GetSpacing()
+
 
 
     return(volumes)
