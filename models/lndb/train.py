@@ -10,7 +10,7 @@ from unet3d.training import load_old_model, train_model
 config = dict()
 config["pool_size"] = (2, 2, 2)  # pool size for the max pooling operations
 config["image_shape"] = (128, 128, 128)  # This determines what shape the images will be cropped/resampled to.
-config["patch_shape"] = (128, 128, 128)  # switch to None to train on the whole image
+config["patch_shape"] = (64, 64, 64)  # switch to None to train on the whole image
 config["labels"] = [1] # the label numbers on the input image
 config["n_labels"] = 1
 config["all_modalities"] = ["CTchest"]
@@ -48,7 +48,7 @@ config["overwrite"] = False  # If True, will previous files. If False, will use 
 
 def fetch_training_data_files():
     training_data_files = list()
-    for subject_dir in glob.glob(os.path.join(os.path.dirname(__file__), "data", "preprocessed8bits", "*")):
+    for subject_dir in glob.glob(os.path.join(os.path.dirname(__file__), "data", "preprocessed", "*")):
         subject_files = list()
         for modality in config["training_modalities"] + ["truth"]:
             subject_files.append(os.path.join(subject_dir, modality + ".nii.gz"))

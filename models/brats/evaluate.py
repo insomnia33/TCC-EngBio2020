@@ -17,6 +17,9 @@ def get_tumor_core_mask(data):
 def get_tumor_ncr_mask(data):
     return data == 1
 
+def get_tumor_ed_mask(data):
+    return data == 2
+
 def get_enhancing_tumor_mask(data):
     return data == 4
 
@@ -26,8 +29,8 @@ def dice_coefficient(truth, prediction):
 
 
 def main():
-    header = ("TumorCore", "EnhancingTumor", "NCR/NET")
-    masking_functions = (get_tumor_core_mask, get_enhancing_tumor_mask, get_tumor_ncr_mask)
+    header = ("WholeTumor", "Edema", "TumorCore")
+    masking_functions = (get_whole_tumor_mask, get_tumor_ed_mask, get_tumor_core_mask)
     rows = list()
     subject_ids = list()
     for case_folder in glob.glob("prediction/*"):

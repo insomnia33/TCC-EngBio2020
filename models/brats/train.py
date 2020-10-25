@@ -10,10 +10,10 @@ from unet3d.training import load_old_model, train_model
 config = dict()
 config["pool_size"] = (2, 2, 2)  # pool size for the max pooling operations
 config["image_shape"] = (144, 144, 144)  # This determines what shape the images will be cropped/resampled to.
-config["patch_shape"] = (96, 96, 96)  # switch to None to train on the whole image
+config["patch_shape"] = (64, 64, 64)  # switch to None to train on the whole image
 config["labels"] = (2, 3)  # the label numbers on the input image
 config["n_labels"] = len(config["labels"])
-config["all_modalities"] = ["t1", "t2", "flair"] 
+config["all_modalities"] = ["t1", "t2, ""flair"] 
 config["training_modalities"] = config["all_modalities"]  # change this if you want to only use some of the modalities
 config["nb_channels"] = len(config["training_modalities"])
 if "patch_shape" in config and config["patch_shape"] is not None:
@@ -32,7 +32,7 @@ config["initial_learning_rate"] = 0.00001
 config["learning_rate_drop"] = 0.5  # factor by which the learning rate will be reduced
 config["validation_split"] = 0.8  # portion of the data that will be used for training
 config["flip"] = False  # augments the data by randomly flipping an axis during
-config["permute"] = True  # data shape must be a cube. Augments the data by permuting in various directions
+config["permute"] = False  # data shape must be a cube. Augments the data by permuting in various directions
 config["distort"] = None  # switch to None if you want no distortion
 config["augment"] = config["flip"] or config["distort"]
 config["validation_patch_overlap"] = 0  # if > 0, during training, validation patches will be overlapping
