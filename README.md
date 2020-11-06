@@ -3,17 +3,29 @@
 ## Introdução
 O TCC consiste em uma plataforma clínica para segmentação de tumores cerebrais em RM-3D, nódulos pulmonares em TC-3D e classificação de covid 19 em TC-2D.
 
+---
 ## Metodologia
 ### Bibliotecas
-* SimpleITK
-* Keras
+<img src="doc/libraries.png" widht="250" height="300"/>
 ### Arquitetura
+Parâmetros: 19,069,058
+<img src="doc/unet3d.png" widht="250" height="250"/>
+
 ### Datasets
 
-## Pipeline e Fluxogramas
-### Pre-processamento
-### Frontend e Backend
+<img src="doc/brats.png" widht="250" height="400"/>
 
+---
+## Pipeline e Fluxogramas
+- **Sistema completo**:
+<img src="doc/fluxogram.png" widht="250" height="300"/>
+### Pre-processamento
+- **BraTS:**
+<img src="doc/preproc-brats.png" widht="250" height="100"/>
+- **LNDB:**
+<img src="doc/preproc-lndb.png" widht="250" height="100"/>
+### Frontend e Backend
+---
 ## Resultados
 
 | 3D Overlay |
