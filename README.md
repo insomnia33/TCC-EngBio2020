@@ -5,11 +5,10 @@ O TCC consiste em uma plataforma de suporte ao diagnóstico clínico através da
 
 ---
 ## Metodologia
-### Bibliotecas
+### Bibliotecas e Arquitetura
 <img src="doc/libraries.png" widht="250" height="300"/>
-### Arquitetura
+<img src="doc/unet3d.png" widht="250" height="300"/>
 Parâmetros: 19,069,058
-<img src="doc/unet3d.png" widht="250" height="250"/>
 
 ### Datasets
 
