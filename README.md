@@ -1,7 +1,7 @@
 # Trabalho de Conclusão do curso de Engenharia Biomédica da PUC-SP
 
 ## Introdução
-O TCC consiste em uma plataforma clínica para segmentação de tumores cerebrais em RM-3D, nódulos pulmonares em TC-3D e classificação de covid 19 em TC-2D.
+O TCC consiste em uma plataforma de suporte ao diagnóstico clínico através da segmentação de tumores cerebrais em RM-3D, nódulos pulmonares em TC-3D e classificação de covid 19 em TC-2D.
 
 ---
 ## Metodologia
