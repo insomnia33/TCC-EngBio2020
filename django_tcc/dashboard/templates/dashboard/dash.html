@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
+<script src="stl_viewer.min.js"></script>
 <html>
 <head>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Features Interface Model Executed  data extracted with modified layout and 3D</title>
 <style id="applicationStylesheet" type="text/css">
 	.mediaViewInfo {
@@ -2454,12 +2456,13 @@
 		</div>
 	</div>
 	<div id="Botao_exportar">
-		<svg class="Retngulo_1471">
-			<rect id="Retngulo_1471" rx="4" ry="4" x="0" y="0" width="206" height="34">
-			</rect>
-		</svg>
-		<div id="EXPORTAR">
-			<span>EXPORTAR</span>
+		<div id="EXPORTAR" class=dropdown>
+			<!-- <button onclick="myFunction()" class="dropbtn">Exportar</button>
+			<div id="myDropdown" class="dropdown-content">
+			<a href="models/brain.stl">STL</a>
+			<a href="#">CSV</a>
+			<a href="#">NIFTI</a>
+			<script src="js/dropdown.js"></script> -->
 		</div>
 	</div>
 	<div id="Size_c">
@@ -2562,30 +2565,12 @@
 			<span>157</span>
 		</div>
 	</div>
-	<img id="axial_d" src="static/axial_d.png" srcset="static/axial_d.png 1x">
-	<div id="slicerunner_d">
-		<div id="Slider_2_d" class="Slider_2">
-			<svg class="Retngulo_1475_d">
-				<rect id="Retngulo_1475_d" rx="0" ry="0" x="0" y="0" width="334" height="4">
-				</rect>
-			</svg>
-			<svg class="Retngulo_570_ea">
-				<rect id="Retngulo_570_ea" rx="0" ry="0" x="0" y="0" width="28" height="4">
-				</rect>
-			</svg>
-			<svg class="Retngulo_571_ea">
-				<rect id="Retngulo_571_ea" rx="0" ry="0" x="0" y="0" width="330" height="4">
-				</rect>
-			</svg>
-			<svg class="Elipse_164_ea">
-				<ellipse id="Elipse_164_ea" rx="8" ry="8" cx="8" cy="8">
-				</ellipse>
-			</svg>
-		</div>
-		<div id="ID250">
-			<span>250</span>
-		</div>
-	</div>
+    <!-- <script src="static/js/three.js"></script>
+    <script src="static/js/STLLoader.js"></script>
+    <script src="static/js/Detector.js"></script>
+    <script src="static/js/OrbitControls.js"></script>
+    <script src="static/js/handLoader.js"></script> -->
+	</script>
 	<div id="Grupo_160">
 		<div id="hero">
 			<svg class="Caminho_235" viewBox="0 0 585.454 27">

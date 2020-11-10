@@ -9,8 +9,8 @@ from unet3d.training import load_old_model, train_model
 
 config = dict()
 config["pool_size"] = (2, 2, 2)  # pool size for the max pooling operations
-config["image_shape"] = (64, 64, 64)  # This determines what shape the images will be cropped/resampled to.
-config["patch_shape"] = (64, 64, 64)  # switch to None to train on the whole image
+config["image_shape"] = (96, 96, 96)  # This determines what shape the images will be cropped/resampled to.
+config["patch_shape"] = (96, 96, 96) # switch to None to train on the whole image
 config["labels"] = (2, 3)  # the label numbers on the input image
 config["n_labels"] = len(config["labels"])
 config["all_modalities"] = ["flair"] 

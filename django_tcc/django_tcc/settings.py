@@ -25,7 +25,7 @@ SECRET_KEY = '@u7r$$j58bkl9qwo384u*8%lk&*%8e60nttpknh40x1s)xhf#&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'rad.eye', 'localhost']
 
 
 # Application definition
