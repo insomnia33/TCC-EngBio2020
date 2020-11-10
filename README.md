@@ -71,7 +71,7 @@ Tumor Core e Edema Segmentation
 Tumor Core e Edema Segmentation
 | Histograma Model XXX | Boxplot Model XXX |
 |:----------:|:----------:|
-|<img src="doc/brats-96-T1T2Flair-plot.png" widht="250px" height="250px"/>|<img src="doc/brats-96-T1T2Flair-test.png" widht="250px" height="250px"/>
+|<img src="doc/brats-96-T1T2Flair-score.png" widht="250px" height="250px"/>|<img src="doc/brats-96-T1T2Flair-plot.png" widht="250px" height="250px"/>
 
 ### LNDB TC-3D 64x64x64
 Lung Nodule Segmentation
