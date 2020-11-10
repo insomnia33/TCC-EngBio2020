@@ -7,19 +7,22 @@
 * PAULO CESAR ESTEVAM FILHO pcesar333@gmail.com
 
 ## Introdução
-O TCC consiste em uma plataforma clínica para segmentação de tumores cerebrais em RM-3D, nódulos pulmonares em TC-3D e classificação de covid 19 em TC-2D.
+O TCC consiste em uma plataforma de suporte ao diagnóstico clínico através da segmentação de tumores cerebrais em RM-3D, nódulos pulmonares em TC-3D e classificação de covid 19 em TC-2D.
 
 Para utilizar a ferramenta execute e acesse localhost:8000
 > python django_tcc/manage.py runserver
 
 ---
 ## Metodologia
+<<<<<<< HEAD
 Todo o desenvolvimento do projeto e treinamento dos modelos foram realizados em dois computadores: I3-9100F + 1050TI 4GB e I7+1060 6GB
 ### Bibliotecas
+=======
+### Bibliotecas e Arquitetura
+>>>>>>> 318cce33a8bed993cdd7c5ccd1c7dee9f9c4e7c5
 <img src="doc/libraries.png" widht="250" height="300"/>
-### Arquitetura
+<img src="doc/unet3d.png" widht="250" height="300"/>
 Parâmetros: 19,069,058
-<img src="doc/unet3d.png" widht="250" height="250"/>
 
 ### Datasets
 
