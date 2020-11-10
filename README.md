@@ -48,6 +48,8 @@ Parâmetros: 19,069,058
 | Model Performance |
 |:----------:|
 |<img src="doc/caso92.gif" widht="500" height="500"/>|
+<img src="doc/dice_all.png" widht="500" height="500"/>
+
 
 ### BraTS T1ce 64x64x64
 Necrose e Enhancing Tumor Segmentation
