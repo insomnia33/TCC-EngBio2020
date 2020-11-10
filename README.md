@@ -14,12 +14,11 @@ Para utilizar a ferramenta execute e acesse localhost:8000
 
 ---
 ## Metodologia
-<<<<<<< HEAD
+
 Todo o desenvolvimento do projeto e treinamento dos modelos foram realizados em dois computadores: I3-9100F + 1050TI 4GB e I7+1060 6GB
 ### Bibliotecas
-=======
+
 ### Bibliotecas e Arquitetura
->>>>>>> 318cce33a8bed993cdd7c5ccd1c7dee9f9c4e7c5
 <img src="doc/libraries.png" widht="250" height="300"/>
 <img src="doc/unet3d.png" widht="250" height="300"/>
 Parâmetros: 19,069,058
