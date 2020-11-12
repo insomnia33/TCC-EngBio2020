@@ -29,12 +29,12 @@ Parâmetros: 19,069,058
 
 ---
 ## Pipeline e Fluxogramas
-- **Sistema completo**:
+**Sistema completo**:
 <img src="doc/fluxogram.png" widht="250" height="300"/>
-## Pre-processamento
-- **BraTS:**
+Pre-processamento
+**BraTS:**
 <img src="doc/preproc-brats.png" widht="250" height="100"/>
-- **LNDB:**
+**LNDB:**
 <img src="doc/preproc-lndb.png" widht="250" height="100"/>
 ## Frontend e Backend
 ---
