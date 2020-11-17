@@ -29,7 +29,7 @@ Todo o desenvolvimento do projeto e treinamento dos modelos foram realizados em 
 ### Bibliotecas
 
 ### Bibliotecas e Arquitetura
-<img src="doc/libraries.png" widht="250" height="300"/>
+<img src="doc/libraries.png" widht="350" height="300"/>
 <img src="doc/unet3d.png" widht="250" height="300"/>
 Parâmetros: 19,069,058
 
@@ -57,7 +57,7 @@ Parâmetros: 19,069,058
 
 | Model Performance |
 |:----------:|
-|<img src="doc/caso92.gif" widht="500" height="500"/>|
+|<img src="doc/post-processing-truth.gif" widht="500" height="500"/>|
 <img src="doc/dice_all.png" widht="500" height="500"/>
 
 
