@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% load static %}
-<script src="stl_viewer.min.js"></script>
 <html>
 <head>
 <meta charset="utf-8"/>
@@ -28,8 +27,8 @@
 	}
 	#Features_Interface_Model_Executed__data_extracted_with_modified_layout_and_3D {
 		position: absolute;
-		width: 1920px;
-		height: 1080px;
+		width: 3840px;
+		height: 2160px;
 		background-color: rgba(0,0,0,1);
 		overflow: hidden;
 		--web-view-name: Features Interface Model Executed  data extracted with modified layout and 3D;
@@ -1159,7 +1158,7 @@
 		font-style: normal;
 		font-weight: bold;
 		font-size: 18px;
-		color: rgba(253,253,253,1);
+		color: rgb(51,0,102,1);
 	}
 	#Size_c {
 		position: absolute;
@@ -1433,6 +1432,14 @@
 		top: 48px;
 		overflow: visible;
 	}
+	#axial_dw {
+		position: absolute;
+		width: 492px;
+		height: 492px;
+		left: 1333px;
+		top: 48px;
+		overflow: visible;
+	}
 	#slicerunner_dx {
 		position: absolute;
 		width: 335px;
@@ -1518,7 +1525,7 @@
 		width: 492px;
 		height: 492px;
 		left: 1333px;
-		top: 540px;
+		top: 600px;
 		overflow: visible;
 	}
 	#slicerunner_d {
@@ -2141,10 +2148,56 @@
 		transform: translate(-834px, -99px) matrix(1,0,0,1,831.25,564.75) rotate(-90deg);
 		transform-origin: center;
 	}
+
+		/* Dropdown Button */
+	.dropbtn {
+		background-color: #330066;
+		color: white;
+		padding: 16px;
+		font-size: 16px;
+		border: none;
+		cursor: pointer;
+	}
+	
+	/* Dropdown button on hover & focus */
+	.dropbtn:hover, .dropbtn:focus {
+		background-color: #2980B9;
+	}
+	
+	/* The container <div> - needed to position the dropdown content */
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+	
+	/* Dropdown Content (Hidden by Default) */
+	.dropdown-content {
+		font-family: Arial, Helvetica, sans-serif;
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		z-index: 1;
+	}
+	
+	/* Links inside the dropdown */
+	.dropdown-content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+	
+	/* Change color of dropdown links on hover */
+	.dropdown-content a:hover {background-color: #ddd}
+	
+	/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+	.show {display:block;}
 </style>
 
 </head>
-<body>
+<body bgcolor="000000">
 <div id="Features_Interface_Model_Executed__data_extracted_with_modified_layout_and_3D">
 	<svg class="Retngulo_1470">
 		<rect id="Retngulo_1470" rx="0" ry="0" x="0" y="0" width="177" height="20">
@@ -2457,12 +2510,14 @@
 	</div>
 	<div id="Botao_exportar">
 		<div id="EXPORTAR" class=dropdown>
-			<!-- <button onclick="myFunction()" class="dropbtn">Exportar</button>
+			<script src="static/js/dropdown.js"></script>
+			<button onclick="myFunction()" class="dropbtn">Exportar</button>
 			<div id="myDropdown" class="dropdown-content">
-			<a href="models/brain.stl">STL</a>
-			<a href="#">CSV</a>
-			<a href="#">NIFTI</a>
-			<script src="js/dropdown.js"></script> -->
+			<a href="static/models/brain.stl">STL</a>
+			<a href="media/data.csv">CSV</a>
+			<a href="media/nifti.zip">NIFTI</a>
+			<script src="js/dropdown.js"></script>
+			</div>
 		</div>
 	</div>
 	<div id="Size_c">
@@ -2565,12 +2620,13 @@
 			<span>157</span>
 		</div>
 	</div>
-    <!-- <script src="static/js/three.js"></script>
-    <script src="static/js/STLLoader.js"></script>
-    <script src="static/js/Detector.js"></script>
-    <script src="static/js/OrbitControls.js"></script>
-    <script src="static/js/handLoader.js"></script> -->
-	</script>
+	<div id="axial_d">
+		<script src="static/js/three.js"></script>
+		<script src="static/js/STLLoader.js"></script>
+		<script src="static/js/Detector.js"></script>
+		<script src="static/js/OrbitControls.js"></script>
+		<script  src="static/js/handLoader.js"></script>
+	</div>
 	<div id="Grupo_160">
 		<div id="hero">
 			<svg class="Caminho_235" viewBox="0 0 585.454 27">

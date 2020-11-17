@@ -7,6 +7,8 @@ import imageio
 import vtk
 import os
 import pandas as pd
+from zipfile import ZipFile
+from glob import glob
 
 '''Function list:
     volume(binary mask, label) -> Calculo de volume em mL -> [int] mL
@@ -104,6 +106,20 @@ def downsample(image):
 
     return resample.Execute(image) # Apply Resample transformation and return the output
 
+def postProcess(mask, flair_norm):
+
+    binMask = sitk.BinaryThreshold(mask, 0.1, int(np.max(sitk.GetArrayFromImage(mask))))
+    top = float(np.max(sitk.GetArrayFromImage(flair_norm)))
+    binMaskCC = sitk.ConnectedComponent(binMask)
+    binMaskCC = sitk.RelabelComponent(binMaskCC)
+    labels = sitk.LabelShapeStatisticsImageFilter() # instance label shape statistic filter
+    labels.Execute(binMaskCC)
+
+    center = mask.TransformPhysicalPointToIndex(labels.GetCentroid(1))
+    whole_tumor = sitk.ConnectedThreshold(flair_norm, [center], 2.8, top)
+
+    return whole_tumor
+
 def prediction(image):
     # SimpleITK image as input
     # Read .h5 model
@@ -127,23 +143,27 @@ def prediction(image):
 def execute(volumes):
     # After clicking on EXECUTE button
     image = sitk.ReadImage(path+volumes['FileName']) # Read the file
-    imageDown = downsample(image) # Downsample the file for prediction
+    imageDown = downsample(sitk.Normalize(image)) # Downsample the file for prediction
     sitk.WriteImage(imageDown, path+'flair_downsampled.nii.gz') # Save downsampled file
 
     tpm = prediction(imageDown) # Pass the file on U-NET and get the Probabilistic Tissue Map
+    top = float(np.max(sitk.GetArrayFromImage(tpm)))
 
     ### POST PROCESSING AREA ###
     # Splitting the TPM on desired ROI tissues, this could be improved with other technics and better thresholds.
-    wtMask = sitk.BinaryThreshold(tpm, lowerThreshold=1, upperThreshold=np.max(tpm), insideValue=1)
-    edMask = sitk.BinaryThreshold(tpm, lowerThreshold=1, upperThreshold=29999, insideValue=2)
-    tcMask = sitk.BinaryThreshold(tpm, lowerThreshold=30000, upperThreshold=np.max(tpm),insideValue=3)
     
+    tcMask = sitk.BinaryThreshold(tpm, lowerThreshold=2400, upperThreshold=top,  insideValue=1)
+    wtMask = postProcess(tpm, imageDown)
+    edMask = wtMask - tcMask
+    edMask = sitk.BinaryThreshold(edMask, 1, 1, insideValue=2, outsideValue=0)
+    tcMask = sitk.BinaryThreshold(tcMask, lowerThreshold=1, upperThreshold=1,  insideValue=3, outsideValue=0)
+
     bot = float(np.min(sitk.GetArrayFromImage(imageDown))) # Get lower pixel intensity
     top = float(np.max(sitk.GetArrayFromImage(imageDown))) # Get higher pixel intensity
     image255 = sitk.IntensityWindowing(imageDown, bot, top) # Convert to 8 Bit image
     # Create the overlay on original image
-    overlay = sitk.LabelOverlay(image=sitk.Cast(image255, sitk.sitkUInt8), labelImage=sitk.Cast(tpm, sitk.sitkUInt8), opacity=0.7,colormap=[255, 0, 0])
-    
+    overlay = sitk.LabelOverlay(image=sitk.Cast(image255, sitk.sitkUInt8), labelImage=sitk.Cast(wtMask, sitk.sitkUInt8), opacity=0.7,colormap=[255, 0, 0])
+
     sliceSaver(overlay) # Save overlay slices
     stlConverter(path+'flair_downsampled.nii.gz') # Save downsampled STL version
 
@@ -154,17 +174,17 @@ def execute(volumes):
     sitk.WriteImage(tpm, path+'flair_tpm.nii.gz')
 
     # Calculate FULL brain volume
-    imageVolume = volume(sitk.BinaryThreshold(imageDown, 0))
-
+    brainMask = sitk.BinaryThreshold(imageDown, 1, top)
+    imageVolume = volume(brainMask)
 
     #volumes['Necrosis'] = volume(mask, 1)
     #volumes['EnhancingTumor'] = volume(mask, 4)
     #volumes['PropEnhancingTumor'] = (volumes['EnhancingTumor']/volumes['WholeTumor'])*100
     #volumes['PropNecrosis'] = (volumes['Necrosis']/volumes['WholeTumor'])*100
     volumes["Volume"] = imageVolume
-    volumes['Edema'] = volume(edMask, 2) # Edema volume calculation
     volumes['TumorCore']  = volume(tcMask, 3) # Tumor Core volume calculation
     volumes['WholeTumor'] = volume(wtMask, 1) # Whole tumor volume
+    volumes['Edema'] = volume(edMask, 2)
     volumes['PropTumorCore'] = (volumes['TumorCore']/volumes['WholeTumor'])*100
     volumes['PropEdema'] = (volumes['Edema']/volumes['WholeTumor'])*100
     volumes['PropTumor'] = (volumes['WholeTumor']/volumes["Volume"])*100
@@ -173,7 +193,13 @@ def execute(volumes):
 
     #print(volumes)
     df = pd.DataFrame.from_dict(volumes)
-    df.to_csv(path+'data.csv') # Save information on a CSV sheet
+    df.to_csv(path+'data.csv', index=False) # Save information on a CSV sheet
+
+    fileList = glob(path+'*.nii.gz')
+    zipObj = ZipFile(path+'nifti.zip', 'w')
+    for file in fileList:
+        zipObj.write(file)
+    zipObj.close()
     return volumes # Return volumes to fill dashboard
 
 def main(fileName):

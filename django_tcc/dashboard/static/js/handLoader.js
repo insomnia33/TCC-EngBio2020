@@ -6,6 +6,8 @@ init();
 
 function init() {
 
+
+  
   scene = new THREE.Scene();
   scene.add( new THREE.AmbientLight( 0x999999 ) );
 
@@ -23,12 +25,15 @@ function init() {
   //var grid = new THREE.GridHelper( 25, 50, 0xffffff, 0x555555 );
   //grid.rotateOnAxis( new THREE.Vector3( 1, 0, 0 ), 90 * ( Math.PI/180 ) );
   //scene.add( grid );
+  container = document.getElementById('axial_d');
+  document.body.appendChild(container);
 
   renderer = new THREE.WebGLRenderer( { antialias: true } );
-  renderer.setClearColor( 0x999999 );
+  renderer.setClearColor( 0x000000 );
   renderer.setPixelRatio( window.devicePixelRatio );
-  renderer.setSize( 256, 256 );
+  renderer.setSize( 492, 492 );
   document.body.appendChild( renderer.domElement );
+  container.appendChild(renderer.domElement);
 
   var loader = new THREE.STLLoader();
 
@@ -36,7 +41,7 @@ function init() {
   // Binary files
 
   var material = new THREE.MeshPhongMaterial( { color: 0x2E4053, specular: 0x111111, shininess: 75 } );
-  loader.load( '../../models/brain.stl', function ( geometry ) {
+  loader.load( 'static/models/brain.stl', function ( geometry ) {
     var mesh = new THREE.Mesh( geometry, material );
 
     mesh.position.set( -3, 0, 0);
@@ -60,10 +65,10 @@ function init() {
 
 function onWindowResize() {
 
-  camera.aspect = 256 / 256;
+  camera.aspect = 492 / 492;
   camera.updateProjectionMatrix();
 
-  renderer.setSize( 256, 256 );
+  renderer.setSize( 492, 492 );
 
   render();
 
