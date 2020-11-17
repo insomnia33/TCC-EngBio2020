@@ -6,16 +6,26 @@
 * IVAN MARREIROS HAZAN ivan.hazan@gmail.com
 * PAULO CESAR ESTEVAM FILHO pcesar333@gmail.com
 
-## Introdução
+## **Introdução**
 O TCC consiste em uma plataforma de suporte ao diagnóstico clínico através da segmentação de tumores cerebrais em RM-3D, nódulos pulmonares em TC-3D e classificação de covid 19 em TC-2D.
 
-Para utilizar a ferramenta execute e acesse localhost:8000
-> python django_tcc/manage.py runserver
+Para utilizar a ferramenta acesse a pasta django_tcc execute o comando abaixo:
+> python manage.py runserver
+
+acesse **localhost:8000** após execução.
+
+
+>**Para o treinamento de modelos acesse as subpastas de models e execute o código train.py (podem ser necessárias modificações de compatibilidade)**
+
+>**Dados para treinamento podem ser obtidos nas páginas oficiais das competições BraTS, LNDb ou no próprio Kaggle. Estes estão referenciados no final da página.**
+
+### Requisitos
+>pip install -r requirements.txt
 
 ---
-## Metodologia
+## **Metodologia**
 
-Todo o desenvolvimento do projeto e treinamento dos modelos foram realizados em dois computadores: I3-9100F + 1050TI 4GB e I7+1060 6GB
+Todo o desenvolvimento do projeto e treinamento dos modelos foram realizados em dois computadores: I3-9100F + 1050TI 4GB e I78650U + 1060 6GB
 ### Bibliotecas
 
 ### Bibliotecas e Arquitetura
@@ -38,7 +48,7 @@ Parâmetros: 19,069,058
 <img src="doc/preproc-lndb.png" widht="250" height="100"/>
 ### Frontend e Backend
 ---
-## Resultados
+## **Resultados**
 
 | 3D Overlay |
 |:----------:|
@@ -84,7 +94,7 @@ Lung Nodule Segmentation
 ### COVID-19 TC-2D
 COVID Classification
 <img src="doc/covid_modelacc.png" widht="250px" height="250px"/>
-## Referências
+## **Referências**
 1. MICCAI. Multimodal brain tumor segmentation challenge 2020. Disponível em: https://www.med.upenn.edu/cbica/brats2020/. Acesso em: 2 Set. 2020.
 2. ICIAR, International Conference on Image Analysis and Recognition. 17th International Conference on Image Analysis and Recognition. Disponível em: https://www.aimiconf.org/iciar20/. Acesso em: 17 jun. 2020.
 3. LNDB. Grand challenge on automatic lung cancer patient management. Disponível em: https://lndb.grand-challenge.org/Evaluation/. Acesso em: 17 jun. 2020.
